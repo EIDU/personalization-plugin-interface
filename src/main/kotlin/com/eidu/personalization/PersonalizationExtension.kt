@@ -10,4 +10,4 @@ data class PersonalizationInput(val progress: List<RunWu>, val contentIds: List<
 
 data class WuProbability(val contentId: String, val probability: Float)
 
-data class PersonalizationOutput(val nextContentId: String, val probabilities: List<WuProbability>)
+data class PersonalizationOutput(val nextContentIds: List<String>, val probabilities: List<WuProbability>)

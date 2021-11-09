@@ -15,6 +15,6 @@ interface PersonalizationPlugin : ExtensionPoint {
 
 data class PersonalizationInput(val progress: List<UnitOutcome>, val contentIds: List<String>)
 
-data class UnitProbability(val contentId: String, val probability: Float)
-
 data class PersonalizationOutput(val nextContentIds: List<String>, val probabilities: List<UnitProbability>)
+
+data class UnitProbability(val contentId: String, val probability: Float)

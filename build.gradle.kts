@@ -34,6 +34,9 @@ dependencies {
 
     // Plugin platform
     implementation("org.pf4j:pf4j:3.6.0")
+
+    // Eidu
+    implementation("com.eidu:domain:1.0.255")
 }
 
 tasks {

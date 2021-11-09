@@ -8,12 +8,10 @@ if (localPropertiesFile.canRead())
     localProperties.load(localPropertiesFile.inputStream())
 
 plugins {
-    kotlin("jvm") version "1.5.30"
+    kotlin("jvm") version "1.5.31"
+    id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
     id("maven-publish")
 }
-
-group = "com.eidu"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -23,10 +21,10 @@ repositories {
         credentials {
             username = System.getenv("READPACKAGES_GITHUB_USER")
                 ?: System.getenv("GITHUB_READPACKAGES_USER")
-                        ?: localProperties.getProperty("githubReadPackagesUser")
+                ?: localProperties.getProperty("githubReadPackagesUser")
             password = System.getenv("READPACKAGES_GITHUB_TOKEN")
                 ?: System.getenv("GITHUB_READPACKAGES_TOKEN")
-                        ?: localProperties.getProperty("githubReadPackagesToken")
+                ?: localProperties.getProperty("githubReadPackagesToken")
         }
     }
 }
@@ -43,7 +41,7 @@ tasks {
         kotlinOptions {
             jvmTarget = "1.8"
             freeCompilerArgs = freeCompilerArgs + listOf(
-                    "-Xopt-in=kotlin.RequiresOptIn"
+                "-Xopt-in=kotlin.RequiresOptIn"
             )
         }
     }
@@ -90,7 +88,5 @@ fun run(command: String): String {
 }
 
 fun version(): String = System.getenv("GITHUB_RUN_NUMBER")?.let {
-    "1.0.$it" + (
-            run("git rev-parse --abbrev-ref HEAD").takeIf { it != "main" }?.let { "-$it" } ?: ""
-            )
+    "1.0.$it" + (run("git rev-parse --abbrev-ref HEAD").takeIf { it != "main" }?.let { "-$it" } ?: "")
 } ?: "snapshot"

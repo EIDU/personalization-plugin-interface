@@ -29,13 +29,13 @@ repositories {
 }
 
 dependencies {
-    api(kotlin("stdlib-jdk8"))
+    compileOnly(kotlin("stdlib-jdk8"))
 
     // Plugin platform
-    implementation("org.pf4j:pf4j:3.6.0")
+    compileOnly("org.pf4j:pf4j:3.6.0")
 
     // Eidu
-    implementation("com.eidu:domain:1.0.255")
+    api("com.eidu:domain:1.0.255")
 }
 
 tasks {

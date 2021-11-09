@@ -13,7 +13,7 @@ interface PersonalizationPlugin : ExtensionPoint {
     ): PersonalizationOutput
 }
 
-data class PersonalizationInput(val progress: List<UnitOutcome>, val contentIds: List<String>)
+data class PersonalizationInput(val learnerProgress: List<UnitOutcome>, val possibleContentIds: List<String>)
 
 data class PersonalizationOutput(val nextContentIds: List<String>, val probabilities: List<UnitProbability>)
 

@@ -1,7 +1,5 @@
 import java.io.ByteArrayOutputStream
 
-run("git config --local core.hooksPath git-hooks")
-
 plugins {
     kotlin("jvm") version "1.5.21"
     id("java-library")

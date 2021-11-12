@@ -28,16 +28,6 @@ repositories {
     }
 }
 
-dependencies {
-    compileOnly(kotlin("stdlib-jdk8"))
-
-    // Plugin platform
-    compileOnly("org.pf4j:pf4j:3.6.0")
-
-    // Eidu
-    api("com.eidu:domain:1.0.255")
-}
-
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8

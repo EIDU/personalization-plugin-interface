@@ -68,6 +68,6 @@ fun run(command: String): String {
     }
 }
 
-fun version(): String = System.getenv("GITHUB_RUN_NUMBER")?.let {
-    "1.0.$it" + (run("git rev-parse --abbrev-ref HEAD").takeIf { it != "main" }?.let { "-$it" } ?: "")
+fun version(): String = System.getenv("GITHUB_RUN_NUMBER")?.let { runNumber ->
+    "1.0.$runNumber" + (run("git rev-parse --abbrev-ref HEAD").takeIf { it != "main" }?.let { "-$it" } ?: "")
 } ?: "snapshot"

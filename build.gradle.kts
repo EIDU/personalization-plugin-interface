@@ -1,4 +1,3 @@
-import org.gradle.jvm.tasks.Jar
 import java.io.ByteArrayOutputStream
 import java.util.Properties
 
@@ -8,7 +7,8 @@ if (localPropertiesFile.canRead())
     localProperties.load(localPropertiesFile.inputStream())
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.5.21"
+    id("java-library")
     id("maven-publish")
 }
 
@@ -38,20 +38,12 @@ dependencies {
     api("com.eidu:domain:1.0.255")
 }
 
-tasks {
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            freeCompilerArgs = freeCompilerArgs + listOf(
-                "-Xopt-in=kotlin.RequiresOptIn"
-            )
-        }
-    }
-}
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
-val sourcesJar by tasks.creating(Jar::class) {
-    archiveClassifier.set("sources")
-    from(sourceSets.getByName("main").allSource)
+    withSourcesJar()
+    withJavadocJar()
 }
 
 publishing {
@@ -72,7 +64,6 @@ publishing {
             version = version()
 
             from(components["java"])
-            artifact(sourcesJar)
         }
     }
 }

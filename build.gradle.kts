@@ -1,10 +1,6 @@
 import java.io.ByteArrayOutputStream
-import java.util.Properties
 
-val localPropertiesFile = project.rootProject.file("local.properties")
-val localProperties = Properties()
-if (localPropertiesFile.canRead())
-    localProperties.load(localPropertiesFile.inputStream())
+run("git config --local core.hooksPath git-hooks")
 
 plugins {
     kotlin("jvm") version "1.5.21"
@@ -14,16 +10,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/EIDU/personalization-plugin-interface")
-        credentials {
-            username = System.getenv("GITHUB_READPACKAGES_USER")
-                ?: localProperties.getProperty("githubReadPackagesUser")
-            password = System.getenv("GITHUB_READPACKAGES_TOKEN")
-                ?: localProperties.getProperty("githubReadPackagesToken")
-        }
-    }
 }
 
 java {
@@ -56,7 +42,9 @@ publishing {
     }
 }
 
-ProcessBuilder("git config --local core.hooksPath git-hooks".split(" ")).start()
+fun version(): String = System.getenv("GITHUB_RUN_NUMBER")?.let { runNumber ->
+    "1.0.$runNumber" + (run("git rev-parse --abbrev-ref HEAD").takeIf { it != "main" }?.let { "-$it" } ?: "")
+} ?: "snapshot"
 
 fun run(command: String): String {
     ByteArrayOutputStream().use { output ->
@@ -67,7 +55,3 @@ fun run(command: String): String {
         return output.toString().trim()
     }
 }
-
-fun version(): String = System.getenv("GITHUB_RUN_NUMBER")?.let { runNumber ->
-    "1.0.$runNumber" + (run("git rev-parse --abbrev-ref HEAD").takeIf { it != "main" }?.let { "-$it" } ?: "")
-} ?: "snapshot"

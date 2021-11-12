@@ -18,11 +18,9 @@ repositories {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/EIDU/personalization-plugin-interface")
         credentials {
-            username = System.getenv("READPACKAGES_GITHUB_USER")
-                ?: System.getenv("GITHUB_READPACKAGES_USER")
+            username = System.getenv("GITHUB_READPACKAGES_USER")
                 ?: localProperties.getProperty("githubReadPackagesUser")
-            password = System.getenv("READPACKAGES_GITHUB_TOKEN")
-                ?: System.getenv("GITHUB_READPACKAGES_TOKEN")
+            password = System.getenv("GITHUB_READPACKAGES_TOKEN")
                 ?: localProperties.getProperty("githubReadPackagesToken")
         }
     }

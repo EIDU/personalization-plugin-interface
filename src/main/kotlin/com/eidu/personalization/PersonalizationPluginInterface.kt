@@ -13,7 +13,7 @@ interface PersonalizationPlugin {
 
 data class PersonalizationInput(val learnerProgress: List<UnitOutcome>, val possibleContentIds: List<String>)
 
-data class PersonalizationOutput(val nextContentIds: List<String>, val probabilities: List<UnitProbability>)
+data class PersonalizationOutput(val nextContentIds: List<String>, val processedContentIds: Map<String, Float>)
 
 data class UnitOutcome(
     val runId: UUID,
@@ -36,5 +36,3 @@ enum class UnitResult {
     TimeoutInactivity,
     TimeUp
 }
-
-data class UnitProbability(val contentId: String, val probability: Float)

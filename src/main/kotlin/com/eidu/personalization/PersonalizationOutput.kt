@@ -1,3 +1,3 @@
 package com.eidu.personalization
 
-data class PersonalizationOutput(val nextContentIds: List<String>, val processedContentIds: Map<String, Float>)
+data class PersonalizationOutput(val nextUnits: List<String>, val processedUnits: Map<String, Float>)

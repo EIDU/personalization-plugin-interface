@@ -1,3 +1,3 @@
 package com.eidu.personalization
 
-data class PersonalizationInput(val learnerProgress: List<UnitOutcome>, val possibleContentIds: List<String>)
+data class PersonalizationInput(val learningHistory: List<UnitOutcome>, val availableUnits: List<String>)

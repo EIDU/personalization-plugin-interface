@@ -5,6 +5,6 @@ import java.io.File
 interface PersonalizationPlugin {
     fun determineNextContentIds(
         input: PersonalizationInput,
-        tensorflowModelInferenceRunner: (modelFile: File, input: Any, output: Any) -> Unit
+        runTensorflowInference: (modelFile: File, input: Any, output: Any) -> Unit
     ): PersonalizationOutput
 }

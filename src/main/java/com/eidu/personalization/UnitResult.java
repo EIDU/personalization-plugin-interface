@@ -1,6 +1,6 @@
-package com.eidu.personalization
+package com.eidu.personalization;
 
-enum class UnitResult {
+public enum UnitResult {
     Success,
     Abort,
     Error,

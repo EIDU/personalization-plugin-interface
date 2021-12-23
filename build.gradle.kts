@@ -1,13 +1,16 @@
 import java.io.ByteArrayOutputStream
 
 plugins {
-    kotlin("jvm") version "1.5.21"
     id("java-library")
     id("maven-publish")
 }
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    implementation("org.jetbrains:annotations:23.0.0")
 }
 
 java {

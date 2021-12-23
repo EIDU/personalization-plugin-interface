@@ -7,11 +7,11 @@ import java.util.Objects;
 
 public class PersonalizationInput {
     @NotNull
-    public final List<UnitOutcome> learningHistory;
+    public final List<UnitResult> learningHistory;
     @NotNull
     public final List<String> availableUnits;
 
-    public PersonalizationInput(@NotNull List<UnitOutcome> learningHistory, @NotNull List<String> availableUnits) {
+    public PersonalizationInput(@NotNull List<UnitResult> learningHistory, @NotNull List<String> availableUnits) {
         this.learningHistory = learningHistory;
         this.availableUnits = availableUnits;
     }

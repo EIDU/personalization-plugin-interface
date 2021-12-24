@@ -1,4 +1,4 @@
-package com.eidu.personalization;
+package com.eidu.personalization.api;
 
 import org.jetbrains.annotations.NotNull;
 

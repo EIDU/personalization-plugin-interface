@@ -1,4 +1,4 @@
-package com.eidu.personalization;
+package com.eidu.personalization.api;
 
 public enum UnitResultType {
     Success,

@@ -3,7 +3,6 @@ package com.eidu.personalization.api;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.Duration;
 import java.util.Objects;
 
 public class UnitResult {
@@ -11,20 +10,19 @@ public class UnitResult {
     public final String unitId;
     @NotNull
     public final UnitResultType resultType;
-    @NotNull
-    public final Duration duration;
+    public final long durationMs;
     @Nullable
     public final Float score;
 
     public UnitResult(
         @NotNull String unitId,
         @NotNull UnitResultType resultType,
-        @NotNull Duration duration,
+        long durationMs,
         @Nullable Float score
     ) {
         this.unitId = unitId;
         this.resultType = resultType;
-        this.duration = duration;
+        this.durationMs = durationMs;
         this.score = score;
     }
 
@@ -33,12 +31,12 @@ public class UnitResult {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UnitResult that = (UnitResult) o;
-        return unitId.equals(that.unitId) && resultType == that.resultType && duration.equals(that.duration) &&
+        return unitId.equals(that.unitId) && resultType == that.resultType && durationMs == that.durationMs &&
                 Objects.equals(score, that.score);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(unitId, resultType, duration, score);
+        return Objects.hash(unitId, resultType, durationMs, score);
     }
 }

@@ -3,6 +3,7 @@ import java.io.ByteArrayOutputStream
 plugins {
     id("java-library")
     id("maven-publish")
+    id("signing")
 }
 
 repositories {
@@ -21,31 +22,63 @@ java {
     withJavadocJar()
 }
 
+fun libraryArtifactId(): String = "personalization-plugin-interface"
+
+signing {
+    useInMemoryPgpKeys(
+        System.getenv("SIGNING_KEY_ID"),
+        System.getenv("SIGNING_KEY"),
+        System.getenv("SIGNING_PASSWORD")
+    )
+    sign(publishing.publications)
+}
+
 publishing {
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/EIDU/personalization-plugin-interface")
+            name = "MavenCentral"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = System.getenv("GITHUB_USER")
-                password = System.getenv("GITHUB_TOKEN")
+                username = System.getenv("MAVEN_CENTRAL_USERNAME")
+                password = System.getenv("MAVEN_CENTRAL_PASSWORD")
             }
         }
     }
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.eidu"
-            artifactId = "personalization-plugin-interface"
+            artifactId = libraryArtifactId()
             version = version()
-
             from(components["java"])
+
+            pom {
+                name.value(libraryArtifactId())
+                description.value("EIDU Personalization Plugin Interface")
+                url.value("https://github.com/EIDU/personalization-plugin-interface")
+                licenses {
+                    license {
+                        name.value("MIT License")
+                        url.value("https://raw.githubusercontent.com/EIDU/personalization-plugin-interface/main/LICENSE")
+                    }
+                }
+                developers {
+                    developer {
+                        id.value("berlix")
+                        name.value("Felix Engelhardt")
+                        url.value("https://github.com/berlix/")
+                    }
+                }
+                scm {
+                    url.value("https://github.com/EIDU/personalization-plugin-interface")
+                    connection.value("scm:git:git://github.com/EIDU/personalization-plugin-interface.git")
+                    developerConnection.value("scm:git:ssh://git@github.com/EIDU/personalization-plugin-interface.git")
+                }
+            }
         }
     }
 }
 
-fun version(): String = System.getenv("GITHUB_RUN_NUMBER")?.let { runNumber ->
-    "1.0.$runNumber" + (run("git rev-parse --abbrev-ref HEAD").takeIf { it != "main" }?.let { "-$it" } ?: "")
-} ?: "snapshot"
+fun version(): String = run("git tag -l --sort -version:refname v-*.*.* | head -n 1").substring(2)
 
 fun run(command: String): String {
     ByteArrayOutputStream().use { output ->

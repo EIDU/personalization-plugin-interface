@@ -1,14 +1,13 @@
-name: Publish
+name: Publish to Maven Central
 
-on: push
+on:
+  push:
+    tags:
+      - 'v-*.*.*'
 
 jobs:
   Publish:
-    runs-on: ubuntu-18.04
-
-    env:
-      GITHUB_READPACKAGES_USER: ${{ secrets.GH_READPACKAGES_USER }}
-      GITHUB_READPACKAGES_TOKEN: ${{ secrets.GH_READPACKAGES_TOKEN }}
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v2
@@ -18,8 +17,14 @@ jobs:
         with:
           java-version: '11'
 
-      - name: Publish JAR
+      - name: Build
+        run: ./gradlew build --stacktrace
+
+      - name: Publish
         run: ./gradlew publish --stacktrace
         env:
-          GITHUB_USER: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}

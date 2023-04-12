@@ -22,7 +22,7 @@ java {
     withJavadocJar()
 }
 
-fun libraryArtifactId(): String = "personalization-plugin-interface"
+val mavenArtifactId: String = "personalization-plugin-interface"
 
 signing {
     useInMemoryPgpKeys(
@@ -47,12 +47,12 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.eidu"
-            artifactId = libraryArtifactId()
+            artifactId = mavenArtifactId
             version = version()
             from(components["java"])
 
             pom {
-                name.value(libraryArtifactId())
+                name.value(mavenArtifactId)
                 description.value("EIDU Personalization Plugin Interface")
                 url.value("https://github.com/EIDU/personalization-plugin-interface")
                 licenses {

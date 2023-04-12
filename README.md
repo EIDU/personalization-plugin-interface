@@ -4,6 +4,10 @@
 
 This interface defines critical API components needed for building your personalization plugins to use within the EIDU platform. 
 
+Please note:
+- Plugins submitted are sand-boxed at runtime to prevent them from causing malicious or unintentional harm.
+- Every new plugin revision submitted will require the source undergo review by EIDU engineering.
+
 ## Usage
 
 To add the Gradle dependency:

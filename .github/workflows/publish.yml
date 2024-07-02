@@ -17,8 +17,8 @@ jobs:
         with:
           java-version: '11'
 
-      - name: Build
-        run: ./gradlew build --stacktrace
+      - name: Check
+        run: ./gradlew check --stacktrace
 
       - name: Publish
         run: ./gradlew publish --stacktrace
@@ -28,3 +28,10 @@ jobs:
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+
+      - name: Publish reports
+        uses: actions/upload-artifact@v1
+        with:
+          name: reports
+          path: build/reports
+        if: ${{ failure() }}

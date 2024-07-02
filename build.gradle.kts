@@ -4,6 +4,7 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("signing")
+    id("com.github.jk1.dependency-license-report") version "2.8"
 }
 
 repositories {
@@ -20,6 +21,20 @@ java {
 
     withSourcesJar()
     withJavadocJar()
+}
+
+licenseReport {
+    allowedLicensesFile = File("$projectDir/allowed-licenses.json")
+}
+
+tasks.named("checkLicense") {
+    // The checkLicense task does not declare this input itself, so we do it here. This ensures
+    // that a modification of the file causes the checkLicense task to be re-evaluated.
+    inputs.file("$projectDir/allowed-licenses.json")
+}
+
+tasks.named("check") {
+    dependsOn("checkLicense")
 }
 
 val mavenArtifactId: String = "personalization-plugin-interface"

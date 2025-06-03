@@ -1,10 +1,12 @@
 import java.io.ByteArrayOutputStream
+import java.util.Base64
 
 plugins {
     id("java-library")
     id("maven-publish")
     id("signing")
     id("com.github.jk1.dependency-license-report") version "2.8"
+    id("tech.yanand.maven-central-publish").version("1.3.0")
 }
 
 repositories {
@@ -16,8 +18,8 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
     withSourcesJar()
     withJavadocJar()
@@ -49,16 +51,6 @@ signing {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "MavenCentral"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = System.getenv("MAVEN_CENTRAL_USERNAME")
-                password = System.getenv("MAVEN_CENTRAL_PASSWORD")
-            }
-        }
-    }
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.eidu"
@@ -91,6 +83,12 @@ publishing {
             }
         }
     }
+}
+
+mavenCentral {
+    authToken.set(Base64.getEncoder().encodeToString("${System.getenv("MAVEN_CENTRAL_USERNAME")}:${System.getenv("MAVEN_CENTRAL_PASSWORD")}".toByteArray()))
+    publishingType.set("USER_MANAGED")
+    maxWait.set(300)
 }
 
 fun version(): String = run("git tag -l --sort -version:refname v-*.*.* | head -n 1").substring(2)

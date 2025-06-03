@@ -20,8 +20,8 @@ jobs:
       - name: Check
         run: ./gradlew check --stacktrace
 
-      - name: Publish
-        run: ./gradlew publish --stacktrace
+      - name: Publish to Maven Central
+        run: ./gradlew publishToMavenCentralPortal --info --stacktrace
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}

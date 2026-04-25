@@ -26,7 +26,7 @@ Please consult [dev.eidu.com](https://dev.eidu.com/personalization/intro) for in
 
 ## Support
 
-Please contact EIDU at [dev@eidu.com](mailto:dev@eidu.com) if you need help.
+Please contact EIDU at [hello@trellis.education](mailto:hello@trellis.education) if you need help.
 
 ## Contributing
 
